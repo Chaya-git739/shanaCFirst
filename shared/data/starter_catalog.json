@@ -1,0 +1,23 @@
+[
+  {
+    "product_id": "shoe-001",
+    "title": "Ivory satin low block-heel wedding shoe",
+    "price": 124.0,
+    "currency": "USD",
+    "tags": ["ivory", "satin", "block heel", "comfortable"]
+  },
+  {
+    "product_id": "shoe-002",
+    "title": "Pearl detail ivory flat wedding shoe",
+    "price": 88.0,
+    "currency": "USD",
+    "tags": ["ivory", "pearl", "flat", "comfortable"]
+  },
+  {
+    "product_id": "shoe-003",
+    "title": "Champagne leather wedding sandal",
+    "price": 175.0,
+    "currency": "USD",
+    "tags": ["champagne", "leather", "sandal"]
+  }
+]

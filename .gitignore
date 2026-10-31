@@ -1,0 +1,15 @@
+# Python bytecode and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Runtime state and results (do not commit personal conversation data)
+API/api_state/
+SDK/sdk_state/
+results/*.json
+
+# Local secrets and environment configuration
+.env
+.env.*
+!.env.example

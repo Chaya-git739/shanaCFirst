@@ -1,0 +1,3 @@
+# Runtime and test dependencies pinned for reproducible API/SDK comparison.
+anthropic==0.84.0
+claude-agent-sdk==0.2.176

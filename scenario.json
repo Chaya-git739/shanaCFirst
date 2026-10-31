@@ -1,0 +1,143 @@
+{
+  "scenario_id": "bridal-shopping-two-session-v1",
+  "description": "Fictional bridal shopping plan with saved preferences, a fresh second-session agent, a budget conflict, and external product search.",
+  "search_fixture": [
+    {
+      "title": "Pearl detail ivory flat wedding shoe",
+      "url": "https://shop.example.invalid/pearl-ivory-flat",
+      "price": 88.0,
+      "currency": "USD",
+      "seller": "Example Bridal Shop",
+      "checked_at": "2026-10-31T12:00:00Z",
+      "excerpt": "Comfortable ivory flats with pearl detail for a wedding day."
+    },
+    {
+      "title": "Ivory satin low block heel wedding shoe",
+      "url": "https://shop.example.invalid/ivory-block-heel",
+      "price": 124.0,
+      "currency": "USD",
+      "seller": "Example Shoe Shop",
+      "checked_at": "2026-10-31T12:00:00Z",
+      "excerpt": "Low block heel with a satin finish."
+    },
+    {
+      "title": "Simple pearl hair comb",
+      "url": "https://shop.example.invalid/pearl-hair-comb",
+      "price": 42.0,
+      "currency": "USD",
+      "seller": "Example Accessories",
+      "checked_at": "2026-10-31T12:00:00Z",
+      "excerpt": "A small pearl accessory for a bridal hairstyle."
+    }
+  ],
+  "sessions": [
+    {
+      "id": "bridal-session-1",
+      "turns": [
+        {
+          "id": "s1-t1-profile",
+          "message": "I am planning for a June 1, 2027 wedding. My shopping budget is $1,800 total. I like classic, comfortable ivory accessories. I already bought my dress. Please remember my budget, style, and remaining shopping categories.",
+          "profile_updates": {
+            "wedding_date": "2027-06-01",
+            "budget": 1800,
+            "currency": "USD",
+            "categories": ["shoes", "accessories", "getting_ready", "emergency_kit"],
+            "purchased_categories": ["dress"],
+            "style_preferences": ["classic", "comfortable", "ivory"],
+            "avoid_terms": ["satin"]
+          }
+        },
+        {
+          "id": "s1-t2-plan",
+          "message": "Create a prioritized shopping checklist for what I still need. Include target dates and estimated ranges, and exclude my dress because I already bought it."
+        },
+        {
+          "id": "s1-t3-search",
+          "message": "Search for comfortable ivory wedding shoes under $150. Compare the options against my preferences and do not recommend satin."
+        },
+        {
+          "id": "s1-t4-save",
+          "message": "I choose the pearl detail ivory flat, product shoe-002 from the search results. Save that as my selected shoe."
+        }
+      ]
+    },
+    {
+      "id": "bridal-session-2",
+      "turns": [
+        {
+          "id": "s2-t1-recall",
+          "message": "This is a new planning session. What total budget and shoe choice did I ask you to remember?"
+        },
+        {
+          "id": "s2-t2-update-plan",
+          "message": "Update my remaining shopping plan using my saved decisions and purchased items."
+        },
+        {
+          "id": "s2-t3-budget-conflict",
+          "message": "I am tempted by an extra $2,500 accessory. That conflicts with my saved total budget; flag the conflict and do not change the budget unless I explicitly confirm a revision."
+        },
+        {
+          "id": "s2-t4-search",
+          "message": "Find one current pearl hair accessory option and compare it with my saved style and budget. Keep my selected shoes and budget unchanged."
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "decision_persisted",
+      "type": "decision_value",
+      "key": "selected_shoes",
+      "expected": "shoe-002"
+    },
+    {
+      "id": "budget_persisted",
+      "type": "profile_value",
+      "key": "budget",
+      "expected": 1800
+    },
+    {
+      "id": "budget_conflict_not_silently_saved",
+      "type": "profile_value",
+      "key": "budget",
+      "expected": 1800
+    },
+    {
+      "id": "dress_remains_marked_purchased",
+      "type": "purchased_category",
+      "category": "dress"
+    },
+    {
+      "id": "search_tool_used",
+      "type": "tool_used",
+      "tool": "search_products"
+    },
+    {
+      "id": "external_fixture_url_seen",
+      "type": "tool_result_contains",
+      "tool": "search_products",
+      "expected_text": "https://shop.example.invalid/pearl-ivory-flat"
+    },
+    {
+      "id": "budget_conflict_was_reported",
+      "type": "profile_conflict_observed",
+      "key": "budget",
+      "proposed_value": 4300
+    },
+    {
+      "id": "saved_shoe_was_not_replaced",
+      "type": "decision_value_not",
+      "key": "selected_shoes",
+      "not_expected": "shoe-001"
+    },
+    {
+      "id": "all_eight_turns_completed",
+      "type": "turn_count",
+      "expected": 8
+    },
+    {
+      "id": "no_tool_errors",
+      "type": "no_turn_errors"
+    }
+  ]
+}
